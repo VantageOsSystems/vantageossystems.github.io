@@ -66,6 +66,12 @@
   footer{text-align:center;color:var(--dim);font-size:13px;margin-top:40px;border-top:1px solid var(--line);padding-top:22px}
   footer .eth{max-width:620px;margin:0 auto 10px;font-size:12px}
   .pulse{animation:p 1.4s infinite}@keyframes p{50%{opacity:.5}}
+  .score{background:linear-gradient(180deg,#1a1326,#0b1322);border:1px solid var(--red);border-radius:16px;padding:24px;margin:0 0 10px;text-align:center;box-shadow:0 0 70px rgba(255,84,112,.14)}
+  .score .num{font-size:clamp(52px,13vw,88px);font-weight:800;color:var(--red);line-height:1;font-family:var(--mono);text-shadow:0 0 24px rgba(255,84,112,.5)}
+  .score .lbl{color:var(--txt);font-size:17px;margin:8px 0 2px;font-weight:800}
+  .score .sub{color:var(--dim);font-size:13px;max-width:540px;margin:8px auto 16px}
+  .score .share{background:var(--cy);color:#04121b;font-weight:800;border:none;border-radius:10px;padding:13px 22px;font-size:15px;cursor:pointer}
+  .score .copy{margin-left:8px;background:var(--bg2);border:1px solid var(--cy2);color:var(--cy);border-radius:10px;padding:13px 18px;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body>
@@ -100,6 +106,7 @@
   </div>
 
   <div id="results">
+    <div class="score" id="scoreCard"></div>
     <div class="sec-title">Account footprint <span class="tag" id="siteCount"></span></div>
     <p style="color:var(--dim);margin:0 0 14px;font-size:14px">Click any site to check if <b id="echo1"></b> has an account there. The ones that load a real profile = part of your public footprint.</p>
     <div class="grid" id="siteGrid"></div>
@@ -109,8 +116,8 @@
     <div id="dorkList"></div>
 
     <div class="cta">
-      <h2>That's <b>2 of 25+ modules.</b> By hand.</h2>
-      <p>The full <b>Vantage Recon</b> desktop app runs all of them on a username, email, domain, or IP — breach exposure, linked accounts, metadata, ports + CVEs, typosquat finder — in <b>one click</b>. No API keys. Runs locally. Authorized research only.</p>
+      <h2>You just saw <b>2 checks.</b> A stranger won't stop there.</h2>
+      <p>Checking all those surfaces by hand — every time something changes — is the problem. The full <b>Vantage Recon</b> app runs <b>25+ modules</b> on a username, email, domain, or IP — breach exposure, linked accounts, metadata, ports + CVEs, typosquat finder — in <b>one click</b>, locally, no API keys. Stop auditing yourself by hand.</p>
       <a class="buy" id="buy" href="#" target="_blank" rel="noopener">Get Vantage Recon →</a>
       <a id="discord" href="https://discord.gg/2F9nGQ5Uy" target="_blank" rel="noopener" style="display:inline-block;margin-left:10px;padding:14px 24px;border:1px solid #2bd4ff;border-radius:10px;color:#2bd4ff;text-decoration:none;font-weight:600;vertical-align:top">Join the Discord</a>
       <div class="price">$19.99 once · lifetime updates · GUI + CLI · free community on Discord</div>
@@ -218,8 +225,21 @@
       dl.appendChild(a);
     });
 
+    // Exposure score — honest: counts the public surfaces a stranger could check (not confirmed hits)
+    const surfaces = SITES.length + dorks.length;
+    const shareText = "I ran a free OSINT self-audit on myself 👀 a stranger could check me across "+SITES.length+"+ sites + targeted searches in minutes. See what's public about YOU:";
+    const shareUrl = "https://vantageossystems.github.io";
+    document.getElementById("scoreCard").innerHTML =
+      '<div class="num">'+surfaces+'</div>'+
+      '<div class="lbl">public surfaces a stranger could check on @'+u+' right now</div>'+
+      '<div class="sub">'+SITES.length+' profile sites + '+dorks.length+' targeted searches — each one a place your name, photos, or leaks could surface. (Checkpoints to review, not confirmed hits.)</div>'+
+      '<button class="share" id="shareBtn">📣 Share my exposure score</button>'+
+      '<button class="copy" id="copyBtn">Copy</button>';
+    document.getElementById("shareBtn").onclick = ()=> window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(shareText)+"&url="+encodeURIComponent(shareUrl),"_blank","noopener");
+    document.getElementById("copyBtn").onclick = ()=> navigator.clipboard.writeText(shareText+" "+shareUrl).then(()=>{ document.getElementById("copyBtn").textContent="Copied ✓"; });
+
     document.getElementById("results").style.display = "block";
-    document.getElementById("results").scrollIntoView({behavior:"smooth", block:"start"});
+    document.getElementById("scoreCard").scrollIntoView({behavior:"smooth", block:"start"});
   }
 
   document.getElementById("go").addEventListener("click", render);
