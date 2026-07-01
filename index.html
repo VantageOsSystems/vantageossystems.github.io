@@ -72,6 +72,18 @@
   .score .sub{color:var(--dim);font-size:13px;max-width:540px;margin:8px auto 16px}
   .score .share{background:var(--cy);color:#04121b;font-weight:800;border:none;border-radius:10px;padding:13px 22px;font-size:15px;cursor:pointer}
   .score .copy{margin-left:8px;background:var(--bg2);border:1px solid var(--cy2);color:var(--cy);border-radius:10px;padding:13px 18px;font-weight:700;cursor:pointer}
+  .offers{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:22px 0 6px;text-align:left}
+  .offer{flex:1;min-width:236px;max-width:340px;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column}
+  .offer.feat{border-color:var(--cy);box-shadow:0 0 44px rgba(43,212,255,.16)}
+  .offer .otag{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;color:var(--cy)}
+  .offer .oprice{font-size:34px;font-weight:800;margin:6px 0 0}
+  .offer .oprice span{font-size:14px;color:var(--dim);font-weight:600}
+  .offer .oname{color:var(--txt);font-weight:700;margin:2px 0 12px}
+  .offer ul{list-style:none;padding:0;margin:0 0 16px;color:var(--dim);font-size:14px;flex:1}
+  .offer ul li{padding:4px 0 4px 20px;position:relative}
+  .offer ul li::before{content:"✓";position:absolute;left:0;color:var(--cy);font-weight:800}
+  .offer .buy{display:block;text-align:center;background:var(--cy);color:#04121b;font-weight:800;text-decoration:none;border-radius:10px;padding:13px}
+  .offer .buy.alt{background:transparent;border:1px solid var(--cy);color:var(--cy)}
 </style>
 </head>
 <body>
@@ -116,11 +128,35 @@
     <div id="dorkList"></div>
 
     <div class="cta">
-      <h2>You just saw <b>2 checks.</b> A stranger won't stop there.</h2>
-      <p>Checking all those surfaces by hand — every time something changes — is the problem. The full <b>Vantage Recon</b> app runs <b>25+ modules</b> on a username, email, domain, or IP — breach exposure, linked accounts, metadata, ports + CVEs, typosquat finder — in <b>one click</b>, locally, no API keys. Stop auditing yourself by hand.</p>
-      <a class="buy" id="buy" href="#" target="_blank" rel="noopener">Get Vantage Recon →</a>
-      <a id="discord" href="https://discord.gg/2F9nGQ5Uy" target="_blank" rel="noopener" style="display:inline-block;margin-left:10px;padding:14px 24px;border:1px solid #2bd4ff;border-radius:10px;color:#2bd4ff;text-decoration:none;font-weight:600;vertical-align:top">Join the Discord</a>
-      <div class="price">$19.99 once · lifetime updates · GUI + CLI · free community on Discord</div>
+      <h2>You just saw <b>2 checks.</b> A stranger runs <b>hundreds.</b></h2>
+      <p>Doing this by hand — every site, every search, every time something changes — is the problem. Pick your fix:</p>
+      <div class="offers">
+        <div class="offer">
+          <div class="otag">DO IT YOURSELF</div>
+          <div class="oprice">$19.99 <span>once</span></div>
+          <div class="oname">Vantage Recon app</div>
+          <ul>
+            <li>25+ recon modules, one click</li>
+            <li>Username · email · domain · IP</li>
+            <li>Runs locally — no API keys</li>
+            <li>GUI + CLI · lifetime updates</li>
+          </ul>
+          <a class="buy" id="buy" href="#" target="_blank" rel="noopener">Get the app →</a>
+        </div>
+        <div class="offer feat">
+          <div class="otag">DONE FOR YOU</div>
+          <div class="oprice">$29 <span>flat</span></div>
+          <div class="oname">Personal exposure report</div>
+          <ul>
+            <li>I run the full scan on your handle</li>
+            <li>Clean PDF: what's public + how to lock it down</li>
+            <li>Delivered within 48 hours</li>
+            <li>Your own footprint only</li>
+          </ul>
+          <a class="buy alt" id="dfy" href="https://discord.gg/2F9nGQ5Uy" target="_blank" rel="noopener">Request my report →</a>
+        </div>
+      </div>
+      <div class="price">Both get you to the same place: see what's exposed, then shut it down. · <a id="discord" href="https://discord.gg/2F9nGQ5Uy" target="_blank" rel="noopener" style="color:var(--cy);text-decoration:none">Join the free Discord</a></div>
       <div class="email">
         <p style="color:var(--dim);font-size:13px;margin:18px 0 0">Or get the free 12-point self-audit checklist by email:</p>
         <form id="emailForm">
